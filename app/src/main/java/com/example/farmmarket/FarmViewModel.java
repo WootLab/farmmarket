@@ -6,21 +6,14 @@ import android.content.Context;
 import androidx.annotation.FractionRes;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.MutableLiveData;
 
 public class FarmViewModel extends AndroidViewModel {
     private FarmRepository repository ;
+    private MutableLiveData<Farm> liveFarms;
     public FarmViewModel(@NonNull Application application) {
         super(application);
-        repository = FarmRepository.getFarmRepositoryInatance();
+        repository = FarmRepository.getFarmRepositoryInstance();
     }
 
-
-
-    public void uploadFarms(Farm farm, Context context){
-        repository.uploadFarm(farm,context);
-    }
-
-    public void joinUp(String email, String password){
-        repository.signUp(email,password);
-    }
 }
