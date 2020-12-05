@@ -8,6 +8,9 @@ public class Farm {
     private String image;
 
 
+    public Farm(){
+
+    }
     public Farm(String location, String title, String description, String image) {
         this.location = location;
         this.title = title;

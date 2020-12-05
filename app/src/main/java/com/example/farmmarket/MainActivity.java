@@ -40,8 +40,9 @@ public class MainActivity extends AppCompatActivity {
         mFarmAdapter = new FarmAdapter();
         recyclerView.setAdapter(mFarmAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        model = new ViewModelProvider(this).get(FarmViewModel.class);
-        model.getAllFarms().observe(MainActivity.this, new Observer<List<Farm>>() {
+        //model = new ViewModelProvider(this).get(FarmViewModel.class);
+        FarmViewModel viewModel = new ViewModelProvider.AndroidViewModelFactory(getApplication()).create(FarmViewModel.class);
+        viewModel.getAllFarms().observe(MainActivity.this, new Observer<List<Farm>>() {
             @Override
             public void onChanged(List<Farm> farms) {
                 mListOfFarms = farms;

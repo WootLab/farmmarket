@@ -1,6 +1,7 @@
 package com.example.farmmarket;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -29,8 +30,8 @@ public class FetchFromBase {
         mContext = context.getApplicationContext();
         farmList = new ArrayList<>();
         firebaseDatabase = FirebaseDatabase.getInstance().getReference(FarmRepository.NODE_FARMS);
-        loadData();
     }
+
 
     public static FetchFromBase getInstanceOfFireBase(Context context){
         if(sfirebaseDatabase == null){
@@ -49,6 +50,7 @@ public class FetchFromBase {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot dataSnapshot: snapshot.getChildren()){
                     Farm farm = dataSnapshot.getValue(Farm.class);
+                    Log.d("Base",""+farm);
                     farmList.add(farm);
                 }
 
@@ -62,9 +64,7 @@ public class FetchFromBase {
     }
 
     public LiveData<List<Farm>> getAllFarms(){
-        //loadData();//The load data might be here so it can always load the new data for us
-        // because if it is being called in the constructor and we are creating a singleton for our class it wnt
-        //always execute all the codes in our constructor as it would be done once
+        loadData();//The load data might be here so it can always load the new data for us
         livefarms.setValue(farmList);
         return  livefarms;
     }
