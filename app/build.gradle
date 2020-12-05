@@ -38,7 +38,11 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:19.5.1'
     implementation 'com.google.firebase:firebase-auth:20.0.1'
     //This helps to solve the problem of viewmodel instantiation
-    implementation "androidx.lifecycle:lifecycle-extension:$lifecycle_version"
+    //implementation "androidx.lifecycle:lifecycle-extension:$lifecycle_version"
+    // ViewModel
+    //implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version"
+    // LiveData
+    implementation "androidx.lifecycle:lifecycle-livedata:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel:2.2.0"
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

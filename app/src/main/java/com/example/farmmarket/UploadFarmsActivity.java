@@ -60,6 +60,6 @@ public class UploadFarmsActivity extends AppCompatActivity {
             return;
         }
         ProgressBar bar = findViewById(R.id.progressBar3);
-        FarmRepository.getFarmRepositoryInstance().uploadFarm(farm,this,bar);
+        FarmRepository.getFarmRepositoryInstance(this).uploadFarm(farm,this,bar);
     }
 }

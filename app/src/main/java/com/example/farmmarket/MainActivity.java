@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
         String email = mAuth.getCurrentUser().getEmail();
         User user = new User(email);
-        if(FarmRepository.getFarmRepositoryInstance().isAdmin(user)){
+        if(FarmRepository.getFarmRepositoryInstance(getApplicationContext()).isAdmin(user)){
             tvUpload.setVisibility(View.VISIBLE);
         }
 

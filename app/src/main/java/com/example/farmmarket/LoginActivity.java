@@ -55,6 +55,6 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         ProgressBar bar = findViewById(R.id.progressBar2);
-        FarmRepository.getFarmRepositoryInstance().login(email, password,this,bar);
+        FarmRepository.getFarmRepositoryInstance(getApplicationContext()).login(email, password,this,bar);
     }
 }

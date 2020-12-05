@@ -33,7 +33,7 @@ public class SignUp extends AppCompatActivity {
         codeName = findViewById(R.id.codeNameEd);
         btnSignIn = findViewById(R.id.btnSignIn);
 
-        repoInstance = FarmRepository.getFarmRepositoryInstance();
+        repoInstance = FarmRepository.getFarmRepositoryInstance(this);
 
 
         btnSignUp.setOnClickListener(v -> {
