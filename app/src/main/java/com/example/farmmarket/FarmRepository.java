@@ -34,7 +34,7 @@ public class FarmRepository {
     private final  FirebaseAuth mAuth;
     private final LiveData<List<Farm>> livefarms;
 
-    private FarmRepository(Context context){
+    public FarmRepository(Context context){
         //mStorageRef = FirebaseStorage.getInstance().getReference("farms");
         mDatabaseRef = FirebaseDatabase.getInstance().getReference(NODE_FARMS);
         mDatabaseRefUsers = FirebaseDatabase.getInstance().getReference(NODE_USERS);

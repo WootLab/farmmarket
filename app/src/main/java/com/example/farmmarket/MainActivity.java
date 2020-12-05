@@ -3,6 +3,8 @@ package com.example.farmmarket;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
     private Button btnFarm;
     private FarmViewModel model;
     private List<Farm> mListOfFarms;
+    private FarmAdapter mFarmAdapter;
+    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,13 +34,19 @@ public class MainActivity extends AppCompatActivity {
         //i STOPPED HERE
 
         btnFarm = findViewById(R.id.buttonFarm);
+        recyclerView = findViewById(R.id.recyclerView);
         btnFarm.setOnClickListener(v->gotoFarmUpload());
         //We stopped here
+        mFarmAdapter = new FarmAdapter();
+        recyclerView.setAdapter(mFarmAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         model = new ViewModelProvider(this).get(FarmViewModel.class);
         model.getAllFarms().observe(MainActivity.this, new Observer<List<Farm>>() {
             @Override
             public void onChanged(List<Farm> farms) {
                 mListOfFarms = farms;
+                mFarmAdapter.setFarms(farms);
+                setEmptyFarm(mListOfFarms);
             }
         });
 
@@ -46,8 +56,16 @@ public class MainActivity extends AppCompatActivity {
             tvUpload.setVisibility(View.VISIBLE);
         }
 
+    }
 
 
+    public void setEmptyFarm(List<Farm> farms){
+        TextView textView = findViewById(R.id.emptyTV);
+        if(farms.size() > 0){
+            textView.setVisibility(View.GONE);
+        }else {
+            textView.setVisibility(View.VISIBLE);
+        }
     }
 
     private void gotoFarmUpload() {
