@@ -9,6 +9,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -20,27 +21,31 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.List;
+
 public class FarmRepository {
 
     private static  final String NODE_USERS = "users";
-    private static final String NODE_FARMS = "farms";
+    public static final String NODE_FARMS = "farms";
     //private StorageReference mStorageRef;
-
-    private DatabaseReference mDatabaseRef;
-    private DatabaseReference mDatabaseRefUsers;
+    private final DatabaseReference mDatabaseRef;
+    private final DatabaseReference mDatabaseRefUsers;
     private static FarmRepository farmRepository;
     private final  FirebaseAuth mAuth;
+    private final LiveData<List<Farm>> livefarms;
 
-    private FarmRepository(){
+    private FarmRepository(Context context){
         //mStorageRef = FirebaseStorage.getInstance().getReference("farms");
         mDatabaseRef = FirebaseDatabase.getInstance().getReference(NODE_FARMS);
         mDatabaseRefUsers = FirebaseDatabase.getInstance().getReference(NODE_USERS);
         mAuth =FirebaseAuth.getInstance();
+        FetchFromBase fetchFromBase = FetchFromBase.getInstanceOfFireBase(context);
+        livefarms = fetchFromBase.getAllFarms();
     }
 
-    public static FarmRepository getFarmRepositoryInstance(){
+    public static FarmRepository getFarmRepositoryInstance(Context context){
         if(farmRepository == null){
-            farmRepository = new FarmRepository();
+            farmRepository = new FarmRepository(context);
             return  farmRepository;
         }
         return  farmRepository;
@@ -52,7 +57,8 @@ public class FarmRepository {
         if(farm != null){
             bar.setVisibility(View.VISIBLE);
             String farmId = mDatabaseRef.push().getKey();
-           mDatabaseRef.child(farmId)
+            assert farmId != null;
+            mDatabaseRef.child(farmId)
                    .setValue(farm)
                    .addOnFailureListener(e -> {
                        Log.d("FarmRepo",e.getMessage());
@@ -152,5 +158,10 @@ public class FarmRepository {
     public boolean isAdmin(User user){
         return user.getIsAdmin();
     }
+
+    public LiveData<List<Farm>> getAllFarms(){
+        return livefarms;
+    }
+
 
 }
