@@ -50,9 +50,11 @@ public class FetchFromBase {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot dataSnapshot: snapshot.getChildren()){
                     Farm farm = dataSnapshot.getValue(Farm.class);
-                    Log.d("Base",""+farm);
+                    Log.d("Flow","Performing loading");
                     farmList.add(farm);
                 }
+                livefarms.postValue(farmList);
+                Log.d("Flow","added to livedata");
 
             }
 
@@ -65,8 +67,6 @@ public class FetchFromBase {
 
     public LiveData<List<Farm>> getAllFarms(){
         loadData();//The load data might be here so it can always load the new data for us
-        Log.d("Farmlist",""+farmList.size());
-        livefarms.postValue(farmList);
         return  livefarms;
     }
 }

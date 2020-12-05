@@ -2,6 +2,7 @@ package com.example.farmmarket;
 
 import android.app.Application;
 import android.content.Context;
+import android.util.Log;
 
 import androidx.annotation.FractionRes;
 import androidx.annotation.NonNull;

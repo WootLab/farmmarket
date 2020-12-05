@@ -48,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
                 mListOfFarms = farms;
                 mFarmAdapter.setFarms(farms);
                 setEmptyFarm(mListOfFarms);
+                Log.d("Flow","Load7");
+                Log.d("Flow","This is d last");
                 Log.d("MainActivity",""+farms.size());
             }
         });

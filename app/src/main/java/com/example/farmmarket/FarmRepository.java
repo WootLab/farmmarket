@@ -40,6 +40,7 @@ public class FarmRepository {
         mDatabaseRefUsers = FirebaseDatabase.getInstance().getReference(NODE_USERS);
         mAuth =FirebaseAuth.getInstance();
         FetchFromBase fetchFromBase = FetchFromBase.getInstanceOfFireBase(context);
+        Log.d("Flow","fetchfromBase");
         livefarms = fetchFromBase.getAllFarms();
     }
 
@@ -163,7 +164,8 @@ public class FarmRepository {
         return user.getIsAdmin();
     }
 
-    public LiveData<List<Farm>> getAllFarms(){
+    public LiveData<List<Farm>> getAllFarms() {
+        Log.d("Flow","Load4");
         return livefarms;
     }
 
