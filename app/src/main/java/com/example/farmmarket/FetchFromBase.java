@@ -65,7 +65,8 @@ public class FetchFromBase {
 
     public LiveData<List<Farm>> getAllFarms(){
         loadData();//The load data might be here so it can always load the new data for us
-        livefarms.setValue(farmList);
+        Log.d("Farmlist",""+farmList.size());
+        livefarms.postValue(farmList);
         return  livefarms;
     }
 }

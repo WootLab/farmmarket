@@ -135,24 +135,28 @@ public class FarmRepository {
     }
 
     public void login(String email,String password,Context context,ProgressBar bar){
-        bar.setVisibility(View.VISIBLE);
-       mAuth.signInWithEmailAndPassword(email, password)
-               .addOnFailureListener(new OnFailureListener() {
-                   @Override
-                   public void onFailure(@NonNull Exception e) {
-                       Toast.makeText(context,e.getMessage(),Toast.LENGTH_LONG).show();
-                       Log.d("Login error",e.getMessage());
-                       bar.setVisibility(View.GONE);
-                   }
-               })
-               .addOnCompleteListener(task -> {
-                   if(task.isSuccessful()){
-                       //Go to the next Activity
-                       bar.setVisibility(View.GONE);
-                       Intent intent = new Intent(context,MainActivity.class);
-                       context.startActivity(intent);
-                   }
-               });
+        if(email != null && password != null ){
+            bar.setVisibility(View.VISIBLE);
+            mAuth.signInWithEmailAndPassword(email, password)
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(context,e.getMessage(),Toast.LENGTH_LONG).show();
+                            Log.d("Login error",e.getMessage());
+                            bar.setVisibility(View.GONE);
+                        }
+                    })
+                    .addOnCompleteListener(task -> {
+                        if(task.isSuccessful()){
+                            //Go to the next Activity
+                            bar.setVisibility(View.GONE);
+                            Intent intent = new Intent(context,MainActivity.class);
+                            context.startActivity(intent);
+                        }
+                    });
+        }else{
+            Toast.makeText(context,"Email or password is empty",Toast.LENGTH_LONG).show();
+        }
     }
 
     public boolean isAdmin(User user){

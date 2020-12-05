@@ -39,7 +39,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private void login() {
-        if(editTextPassword != null || editTextName != null){
+        if(editTextPassword != null && editTextName != null){
             String email = Objects.requireNonNull(editTextName.getText()).toString().trim();
             String password = Objects.requireNonNull(editTextPassword.getText()).toString().trim();
 

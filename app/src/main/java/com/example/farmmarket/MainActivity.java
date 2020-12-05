@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -29,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        tvUpload = findViewById(R.id.upload);
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         //i STOPPED HERE
 
@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         btnFarm.setOnClickListener(v->gotoFarmUpload());
         //We stopped here
-        mFarmAdapter = new FarmAdapter();
+        mFarmAdapter = new FarmAdapter(this);
         recyclerView.setAdapter(mFarmAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         //model = new ViewModelProvider(this).get(FarmViewModel.class);
@@ -48,13 +48,16 @@ public class MainActivity extends AppCompatActivity {
                 mListOfFarms = farms;
                 mFarmAdapter.setFarms(farms);
                 setEmptyFarm(mListOfFarms);
+                Log.d("MainActivity",""+farms.size());
             }
         });
 
         String email = mAuth.getCurrentUser().getEmail();
+        Log.d("MainActivity",email);
         User user = new User(email);
         if(FarmRepository.getFarmRepositoryInstance(getApplicationContext()).isAdmin(user)){
-            tvUpload.setVisibility(View.VISIBLE);
+            btnFarm.setVisibility(View.VISIBLE);
+            Log.d("MainActivity",""+user.getIsAdmin());
         }
 
     }
