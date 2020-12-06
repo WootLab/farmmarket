@@ -19,12 +19,11 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView tvUpload;
+
     private Button btnFarm;
-    private FarmViewModel model;
+    //private FarmViewModel model;
     private List<Farm> mListOfFarms;
     private FarmAdapter mFarmAdapter;
-    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         //i STOPPED HERE
 
         btnFarm = findViewById(R.id.buttonFarm);
-        recyclerView = findViewById(R.id.recyclerView);
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
         btnFarm.setOnClickListener(v->gotoFarmUpload());
         //We stopped here
         mFarmAdapter = new FarmAdapter(this);
@@ -48,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
                 mListOfFarms = farms;
                 mFarmAdapter.setFarms(farms);
                 setEmptyFarm(mListOfFarms);
-                Log.d("Flow","Load7");
+
                 Log.d("Flow","This is d last");
                 Log.d("MainActivity",""+farms.size());
             }
@@ -56,10 +55,8 @@ public class MainActivity extends AppCompatActivity {
 
         String email = mAuth.getCurrentUser().getEmail();
         Log.d("MainActivity",email);
-        User user = new User(email);
-        if(FarmRepository.getFarmRepositoryInstance(getApplicationContext()).isAdmin(user)){
+        if(email.equals("bam@gmail.com")||email.equals("chibaba@gmail.com")||email.equals("yvonne@gmail.com")){
             btnFarm.setVisibility(View.VISIBLE);
-            Log.d("MainActivity",""+user.getIsAdmin());
         }
 
     }
