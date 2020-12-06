@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.view.contentcapture.DataRemovalRequest;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -32,6 +33,7 @@ public class FarmRepository {
     private final DatabaseReference mDatabaseRefUsers;
     private static FarmRepository farmRepository;
     private final  FirebaseAuth mAuth;
+
     private final LiveData<List<Farm>> livefarms;
 
     private FarmRepository(Context context){
@@ -135,9 +137,27 @@ public class FarmRepository {
 
     }
 
-    public void login(String email,String password,Context context,ProgressBar bar){
+    public void login(String email, String password, Context context, ProgressBar bar, EditText emailText,EditText passwordText){
         if(email != null && password != null ){
             bar.setVisibility(View.VISIBLE);
+
+            if(email.isEmpty()){
+                emailText.setError("Email cnt be empty");
+                emailText.requestFocus();
+                return;
+            }
+
+            if(password.isEmpty()){
+                passwordText.setError("Password Cant be empty");
+                passwordText.requestFocus();
+                return;
+            }
+
+            if(email.isEmpty() && password.isEmpty()){
+                Toast.makeText(context,"Email and password are empty",Toast.LENGTH_LONG).show();
+                return;
+            }
+
             mAuth.signInWithEmailAndPassword(email, password)
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
@@ -155,6 +175,32 @@ public class FarmRepository {
                             context.startActivity(intent);
                         }
                     });
+        }else{
+            Toast.makeText(context,"Email or password is empty",Toast.LENGTH_LONG).show();
+        }
+    }
+
+
+    public void login(String email, String password, Context context, ProgressBar bar){
+        if(email != null && password != null ){
+            mAuth.signInWithEmailAndPassword(email, password)
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(context,e.getMessage(),Toast.LENGTH_LONG).show();
+                            Log.d("Login error",e.getMessage());
+                            bar.setVisibility(View.GONE);
+                        }
+                    })
+                    .addOnCompleteListener(task -> {
+                        if(task.isSuccessful()){
+                            //Go to the next Activity
+                            bar.setVisibility(View.GONE);
+                            Intent intent = new Intent(context,MainActivity.class);
+                            context.startActivity(intent);
+                        }
+                    });
+
         }else{
             Toast.makeText(context,"Email or password is empty",Toast.LENGTH_LONG).show();
         }
