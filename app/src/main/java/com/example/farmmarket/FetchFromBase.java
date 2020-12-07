@@ -43,7 +43,6 @@ public class FetchFromBase {
         }
 
         return sfirebaseDatabase;
-
     }
 
 
