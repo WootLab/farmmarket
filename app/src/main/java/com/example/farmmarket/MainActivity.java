@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
         btnFarm = findViewById(R.id.buttonFarm);
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        ProgressBar bar = findViewById(R.id.progressBar5);
         btnFarm.setOnClickListener(v->gotoFarmUpload());
         //We stopped here
         mFarmAdapter = new FarmAdapter(this);
@@ -53,6 +55,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        if(FarmRepository.getFarmRepositoryInstance(this).getLoading()){
+            bar.setVisibility(View.VISIBLE);
+        }else{
+            bar.setVisibility(View.GONE);
+        }
         String email = mAuth.getCurrentUser().getEmail();
         Log.d("MainActivity",email);
         if(email.equals("bam@gmail.com")||email.equals("chibaba@gmail.com")||email.equals("yvonne@gmail.com")){

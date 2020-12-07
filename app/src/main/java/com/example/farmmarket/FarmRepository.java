@@ -33,6 +33,7 @@ public class FarmRepository {
     private final DatabaseReference mDatabaseRefUsers;
     private static FarmRepository farmRepository;
     private final  FirebaseAuth mAuth;
+    private FetchFromBase fetchFromBase;
 
     private final LiveData<List<Farm>> livefarms;
 
@@ -41,7 +42,7 @@ public class FarmRepository {
         mDatabaseRef = FirebaseDatabase.getInstance().getReference(NODE_FARMS);
         mDatabaseRefUsers = FirebaseDatabase.getInstance().getReference(NODE_USERS);
         mAuth =FirebaseAuth.getInstance();
-        FetchFromBase fetchFromBase = FetchFromBase.getInstanceOfFireBase(context);
+        fetchFromBase = FetchFromBase.getInstanceOfFireBase(context);
         Log.d("Flow","fetchfromBase");
         livefarms = fetchFromBase.getAllFarms();
     }
@@ -139,8 +140,6 @@ public class FarmRepository {
 
     public void login(String email, String password, Context context, ProgressBar bar, EditText emailText,EditText passwordText){
         if(email != null && password != null ){
-            bar.setVisibility(View.VISIBLE);
-
             if(email.isEmpty()){
                 emailText.setError("Email cnt be empty");
                 emailText.requestFocus();
@@ -158,6 +157,7 @@ public class FarmRepository {
                 return;
             }
 
+            bar.setVisibility(View.VISIBLE);
             mAuth.signInWithEmailAndPassword(email, password)
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
@@ -213,6 +213,10 @@ public class FarmRepository {
     public LiveData<List<Farm>> getAllFarms() {
         Log.d("Flow","Load4");
         return livefarms;
+    }
+
+    public boolean getLoading(){
+        return fetchFromBase.isLoading();
     }
 
 

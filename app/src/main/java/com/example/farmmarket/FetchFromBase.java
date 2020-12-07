@@ -24,9 +24,12 @@ public class FetchFromBase {
     private final DatabaseReference firebaseDatabase;
     private final Context mContext;
 
+    private boolean loading;
+
 
     private FetchFromBase(Context context){
         livefarms = new MutableLiveData<>();
+        loading = false;
         mContext = context.getApplicationContext();
         farmList = new ArrayList<>();
         firebaseDatabase = FirebaseDatabase.getInstance().getReference(FarmRepository.NODE_FARMS);
@@ -44,15 +47,21 @@ public class FetchFromBase {
     }
 
 
+    public boolean isLoading() {
+        return loading;
+    }
+
     public void loadData(){
         firebaseDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                loading = true;
                 for(DataSnapshot dataSnapshot: snapshot.getChildren()){
                     Farm farm = dataSnapshot.getValue(Farm.class);
                     Log.d("Flow","Performing loading");
                     farmList.add(farm);
                 }
+                loading = false;
                 livefarms.postValue(farmList);
                 Log.d("Flow","added to livedata");
 
