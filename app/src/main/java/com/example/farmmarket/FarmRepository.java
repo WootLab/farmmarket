@@ -206,9 +206,6 @@ public class FarmRepository {
         }
     }
 
-    public boolean isAdmin(User user){
-        return user.getIsAdmin();
-    }
 
     public LiveData<List<Farm>> getAllFarms() {
         Log.d("Flow","Load4");

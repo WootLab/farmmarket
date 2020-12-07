@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
     //private FarmViewModel model;
     private List<Farm> mListOfFarms;
     private FarmAdapter mFarmAdapter;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,21 +50,19 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onChanged(List<Farm> farms) {
                 mListOfFarms = farms;
+                if(!FarmRepository.getFarmRepositoryInstance(MainActivity.this).getLoading()){
+                    bar.setVisibility(View.GONE);
+                }
+
                 mFarmAdapter.setFarms(farms);
                 setEmptyFarm(mListOfFarms);
 
-                Log.d("Flow","This is d last");
-                Log.d("MainActivity",""+farms.size());
             }
         });
 
-        if(FarmRepository.getFarmRepositoryInstance(this).getLoading()){
-            bar.setVisibility(View.VISIBLE);
-        }else{
-            bar.setVisibility(View.GONE);
-        }
-        String email = mAuth.getCurrentUser().getEmail();
+        String email = Objects.requireNonNull(mAuth.getCurrentUser()).getEmail();
         Log.d("MainActivity",email);
+        assert email != null;
         if(email.equals("bam@gmail.com")||email.equals("chibaba@gmail.com")||email.equals("yvonne@gmail.com")){
             btnFarm.setVisibility(View.VISIBLE);
         }

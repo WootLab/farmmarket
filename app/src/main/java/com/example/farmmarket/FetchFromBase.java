@@ -2,6 +2,8 @@ package com.example.farmmarket;
 
 import android.content.Context;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -23,13 +25,11 @@ public class FetchFromBase {
     private final List<Farm> farmList;
     private final DatabaseReference firebaseDatabase;
     private final Context mContext;
-
     private boolean loading;
-
 
     private FetchFromBase(Context context){
         livefarms = new MutableLiveData<>();
-        loading = false;
+        loading = true;
         mContext = context.getApplicationContext();
         farmList = new ArrayList<>();
         firebaseDatabase = FirebaseDatabase.getInstance().getReference(FarmRepository.NODE_FARMS);
@@ -46,15 +46,12 @@ public class FetchFromBase {
     }
 
 
-    public boolean isLoading() {
-        return loading;
-    }
+
 
     public void loadData(){
         firebaseDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                loading = true;
                 for(DataSnapshot dataSnapshot: snapshot.getChildren()){
                     Farm farm = dataSnapshot.getValue(Farm.class);
                     Log.d("Flow","Performing loading");
@@ -62,15 +59,19 @@ public class FetchFromBase {
                 }
                 loading = false;
                 livefarms.postValue(farmList);
-                Log.d("Flow","added to livedata");
 
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(mContext,error.getMessage(),Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext,error.getMessage(),Toast.LENGTH_LONG)
+                        .show();
             }
         });
+    }
+
+    public boolean isLoading() {
+        return loading;
     }
 
     public LiveData<List<Farm>> getAllFarms(){
