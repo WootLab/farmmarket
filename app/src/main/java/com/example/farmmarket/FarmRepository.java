@@ -80,13 +80,12 @@ public class FarmRepository {
 
 
 
-    public void signUp(String email, String password, Context context, String codeName, ProgressBar bar){
+    public void signUp(String email, String password, Context context, ProgressBar bar){
         bar.setVisibility(View.VISIBLE);
         mAuth.createUserWithEmailAndPassword(email,password)
                 .addOnFailureListener(e -> {
                     Log.d("RepoFailure",password);
                     Log.d("RepoFailure",email);
-                    Log.d("RepoFailure",codeName);
 
                     Toast.makeText(context,"error"+e.getMessage(),Toast.LENGTH_LONG).show();
                     bar.setVisibility(View.GONE);
@@ -100,7 +99,6 @@ public class FarmRepository {
                             //This is where we set the values we want our users to have
                             User user = new User(email);
                             user.setEmail(email);
-                            user.setCodeName(codeName);
                             user.setPassword(password);
                             //Then add the user to ur database
                             String userId = mDatabaseRef.push().getKey();

@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
@@ -18,8 +19,7 @@ public class SignUp extends AppCompatActivity {
     private EditText ediTextUsername;
     private EditText editTextPassword;
     private EditText editTextEmail;
-    private TextInputEditText codeName;
-    private Button btnSignIn;
+    private TextView btnSignIn;
     private FarmRepository repoInstance;
 
     @Override
@@ -30,7 +30,6 @@ public class SignUp extends AppCompatActivity {
         editTextPassword = findViewById(R.id.password);
         ediTextUsername = findViewById(R.id.username);
         editTextEmail = findViewById(R.id.email);
-        codeName = findViewById(R.id.codeNameEd);
         btnSignIn = findViewById(R.id.btnSignIn);
 
         repoInstance = FarmRepository.getFarmRepositoryInstance(this);
@@ -40,8 +39,7 @@ public class SignUp extends AppCompatActivity {
             String email = editTextEmail.getText().toString().trim();
             String username = ediTextUsername.getText().toString().trim();
             String password = editTextPassword.getText().toString().trim();
-            String codeNameStr = codeName.getText().toString().trim();
-            addToDatabase(email, password,username,codeNameStr);
+            addToDatabase(email, password,username);
         });
 
         btnSignIn.setOnClickListener(new View.OnClickListener() {
@@ -55,7 +53,7 @@ public class SignUp extends AppCompatActivity {
 
 
 
-    private void addToDatabase(String email, String password, String username, String codeName) {
+    private void addToDatabase(String email, String password, String username) {
         if(email.isEmpty()){
             editTextEmail.setError("Email is required");
             editTextEmail.requestFocus();
@@ -76,7 +74,7 @@ public class SignUp extends AppCompatActivity {
         }
         //This will trigger what adds the user to the database
         ProgressBar prog = findViewById(R.id.progressBar);
-        repoInstance.signUp(email,password,this,codeName,prog);
+        repoInstance.signUp(email,password,this,prog);
         
     }
 }
