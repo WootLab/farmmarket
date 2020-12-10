@@ -20,6 +20,7 @@ public class SignUp extends AppCompatActivity {
     private EditText editTextPassword;
     private EditText editTextEmail;
     private EditText editTextPhone;
+    private EditText editTextFullName;
     private TextView btnSignIn;
     private FarmRepository repoInstance;
 
@@ -32,6 +33,7 @@ public class SignUp extends AppCompatActivity {
         ediTextUsername = findViewById(R.id.username);
         editTextEmail = findViewById(R.id.email);
         editTextPhone = findViewById(R.id.phoneEd);
+        editTextFullName = findViewById(R.id.fullname);
         btnSignIn = findViewById(R.id.btnSignIn);
 
         repoInstance = FarmRepository.getFarmRepositoryInstance(this);
@@ -42,7 +44,8 @@ public class SignUp extends AppCompatActivity {
             String username = ediTextUsername.getText().toString().trim();
             String password = editTextPassword.getText().toString().trim();
             String phone = editTextPhone.getText().toString().trim();
-            addToDatabase(email, password,username,phone);
+            String fullname = editTextFullName.getText().toString().trim();
+            addToDatabase(email, password,username,phone,fullname);
         });
 
         btnSignIn.setOnClickListener(v -> {
@@ -53,7 +56,7 @@ public class SignUp extends AppCompatActivity {
 
 
 
-    private void addToDatabase(String email, String password, String username,String phone) {
+    private void addToDatabase(String email, String password, String username,String phone,String fullname) {
         if(email.isEmpty()){
             editTextEmail.setError("Email is required");
             editTextEmail.requestFocus();
@@ -74,7 +77,7 @@ public class SignUp extends AppCompatActivity {
         }
         //This will trigger what adds the user to the database
         ProgressBar prog = findViewById(R.id.progressBar);
-        repoInstance.signUp(email,password,this,prog,phone);
+        repoInstance.signUp(email,password,this,prog,phone,username,fullname);
         
     }
 }

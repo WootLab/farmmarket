@@ -80,7 +80,7 @@ public class FarmRepository {
 
 
 
-    public void signUp(String email, String password, Context context, ProgressBar bar,String phone){
+    public void signUp(String email, String password, Context context, ProgressBar bar,String phone,String username,String name){
         bar.setVisibility(View.VISIBLE);
         mAuth.createUserWithEmailAndPassword(email,password)
                 .addOnFailureListener(e -> {
@@ -99,6 +99,8 @@ public class FarmRepository {
                             //This is where we set the values we want our users to have
                             User user = new User(email);
 
+                            user.setName(name);
+                            user.setUsername(username);
                             user.setEmail(email);
                             user.setPhone(phone);
                             user.setPassword(password);
@@ -152,10 +154,6 @@ public class FarmRepository {
                 return;
             }
 
-            if(email.isEmpty() && password.isEmpty()){
-                Toast.makeText(context,"Email and password are empty",Toast.LENGTH_LONG).show();
-                return;
-            }
 
             bar.setVisibility(View.VISIBLE);
             mAuth.signInWithEmailAndPassword(email, password)
