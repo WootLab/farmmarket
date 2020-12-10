@@ -42,12 +42,9 @@ public class SignUp extends AppCompatActivity {
             addToDatabase(email, password,username);
         });
 
-        btnSignIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SignUp.this,LoginActivity.class);
-                startActivity(intent);
-            }
+        btnSignIn.setOnClickListener(v -> {
+            Intent intent = new Intent(SignUp.this,LoginActivity.class);
+            startActivity(intent);
         });
     }
 
