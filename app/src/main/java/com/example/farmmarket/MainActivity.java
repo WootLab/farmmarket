@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     //private FarmViewModel model;
     private List<Farm> mListOfFarms;
     private FarmAdapter mFarmAdapter;
+    public static final String FARM_PORT = "FarmPort";
 
 
 
@@ -66,6 +67,16 @@ public class MainActivity extends AppCompatActivity {
         if(email.equals("bam@gmail.com")||email.equals("chibaba@gmail.com")||email.equals("yvonne@gmail.com")){
             btnFarm.setVisibility(View.VISIBLE);
         }
+
+        mFarmAdapter.farmDetail(new FarmAdapter.FarmAdapterListener() {
+            @Override
+            public void gotoNext(int position) {
+                Farm farm = mListOfFarms.get(position);
+                Intent intent = new Intent(MainActivity.this,farmDetail.class);
+                intent.putExtra(FARM_PORT,farm);
+                startActivity(intent);
+            }
+        });
 
     }
 

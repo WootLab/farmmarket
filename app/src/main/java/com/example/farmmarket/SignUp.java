@@ -19,6 +19,8 @@ public class SignUp extends AppCompatActivity {
     private EditText ediTextUsername;
     private EditText editTextPassword;
     private EditText editTextEmail;
+    private EditText editTextPhone;
+    private EditText editTextFullName;
     private TextView btnSignIn;
     private FarmRepository repoInstance;
 
@@ -30,6 +32,8 @@ public class SignUp extends AppCompatActivity {
         editTextPassword = findViewById(R.id.password);
         ediTextUsername = findViewById(R.id.username);
         editTextEmail = findViewById(R.id.email);
+        editTextPhone = findViewById(R.id.phoneEd);
+        editTextFullName = findViewById(R.id.fullname);
         btnSignIn = findViewById(R.id.btnSignIn);
 
         repoInstance = FarmRepository.getFarmRepositoryInstance(this);
@@ -39,21 +43,20 @@ public class SignUp extends AppCompatActivity {
             String email = editTextEmail.getText().toString().trim();
             String username = ediTextUsername.getText().toString().trim();
             String password = editTextPassword.getText().toString().trim();
-            addToDatabase(email, password,username);
+            String phone = editTextPhone.getText().toString().trim();
+            String fullname = editTextFullName.getText().toString().trim();
+            addToDatabase(email, password,username,phone,fullname);
         });
 
-        btnSignIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SignUp.this,LoginActivity.class);
-                startActivity(intent);
-            }
+        btnSignIn.setOnClickListener(v -> {
+            Intent intent = new Intent(SignUp.this,LoginActivity.class);
+            startActivity(intent);
         });
     }
 
 
 
-    private void addToDatabase(String email, String password, String username) {
+    private void addToDatabase(String email, String password, String username,String phone,String fullname) {
         if(email.isEmpty()){
             editTextEmail.setError("Email is required");
             editTextEmail.requestFocus();
@@ -74,7 +77,7 @@ public class SignUp extends AppCompatActivity {
         }
         //This will trigger what adds the user to the database
         ProgressBar prog = findViewById(R.id.progressBar);
-        repoInstance.signUp(email,password,this,prog);
+        repoInstance.signUp(email,password,this,prog,phone,username,fullname);
         
     }
 }

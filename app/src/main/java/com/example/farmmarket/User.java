@@ -2,28 +2,16 @@ package com.example.farmmarket;
 
 public class User {
     private String name;
+
+
+    private String username;
     private String email;
     private String password;
-    private String codeName;
-    private boolean isAdmin;
+    private String phone;
 
     public User(String email) {
         this.email = email;
-        isAdmin = false;
-        codeName = "Not admin";
-    }
-
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public boolean isAdmin() {
-        return isAdmin;
+        phone = "No number";
     }
 
 
@@ -31,9 +19,16 @@ public class User {
         this.password = password;
     }
 
+    public String getPassword() {
+        return password;
+    }
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getEmail() {
+        return email;
     }
 
     public String getName() {
@@ -44,26 +39,21 @@ public class User {
         this.name = name;
     }
 
-
-    public String getCodeName() {
-        return codeName;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setCodeName(String codeName) {
-        this.codeName = codeName;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public boolean getIsAdmin() {
-        if(getCodeName().equals("bamidele")
-                ||getCodeName().equals("chinedu")
-                ||getCodeName().equals("yvonne")){
-            setAdmin(true);
-            return isAdmin;
-        }
-        return isAdmin;
+    public String getUsername() {
+        return username;
     }
 
-    public void setAdmin(boolean admin) {
-        isAdmin = admin;
+    public void setUsername(String username) {
+        this.username = username;
     }
+
+
 }

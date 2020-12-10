@@ -1,6 +1,8 @@
 package com.example.farmmarket;
 
-public class Farm {
+import java.io.Serializable;
+
+public class Farm implements Serializable {
 
     private String location;
     private String title;

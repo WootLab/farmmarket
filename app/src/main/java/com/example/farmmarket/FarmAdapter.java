@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -20,6 +21,7 @@ import java.util.List;
 public class FarmAdapter extends RecyclerView.Adapter<FarmAdapter.FarmHolder> {
     private List<Farm> allfarms = new ArrayList<>() ;
     Context context;
+    FarmAdapterListener farmAdapterListener;
     public FarmAdapter(Context context){
         this.context = context;
     }
@@ -28,6 +30,10 @@ public class FarmAdapter extends RecyclerView.Adapter<FarmAdapter.FarmHolder> {
     public FarmHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.farmview,parent,false);
         return new FarmHolder(view);
+    }
+
+    public void farmDetail(FarmAdapterListener farmAdapterListener){
+        this.farmAdapterListener = farmAdapterListener;
     }
 
     @Override
@@ -57,10 +63,11 @@ public class FarmAdapter extends RecyclerView.Adapter<FarmAdapter.FarmHolder> {
         return allfarms.size();
     }
 
-    public static class FarmHolder extends RecyclerView.ViewHolder {
+    public class FarmHolder extends RecyclerView.ViewHolder {
         TextView location,title,desc;
         Button btnShow;
         ImageView image;
+        CardView cardView;
         public FarmHolder(@NonNull View itemView) {
             super(itemView);
             location = itemView.findViewById(R.id.locationTV);
@@ -68,6 +75,26 @@ public class FarmAdapter extends RecyclerView.Adapter<FarmAdapter.FarmHolder> {
             desc = itemView.findViewById(R.id.farmDesc);
             btnShow = itemView.findViewById(R.id.buttonMap);
             image = itemView.findViewById(R.id.imageView);
+            cardView = itemView.findViewById(R.id.card);
+
+            cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(farmAdapterListener != null){
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION){
+                            farmAdapterListener.gotoNext(position);
+                        }
+
+                    }
+                }
+            });
+
+
         }
+    }
+
+    public interface FarmAdapterListener{
+        void gotoNext(int position);
     }
 }
