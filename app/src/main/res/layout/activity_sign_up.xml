@@ -114,7 +114,7 @@
                 app:counterEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/phone"
+                    android:id="@+id/phoneEd"
                     android:layout_width="match_parent"
                     android:layout_height="63dp"
                     android:hint="phone Number" />

@@ -33,7 +33,7 @@ public class FarmRepository {
     private final DatabaseReference mDatabaseRefUsers;
     private static FarmRepository farmRepository;
     private final  FirebaseAuth mAuth;
-    private FetchFromBase fetchFromBase;
+    private final FetchFromBase fetchFromBase;
 
     private final LiveData<List<Farm>> livefarms;
 
@@ -80,7 +80,7 @@ public class FarmRepository {
 
 
 
-    public void signUp(String email, String password, Context context, ProgressBar bar){
+    public void signUp(String email, String password, Context context, ProgressBar bar,String phone){
         bar.setVisibility(View.VISIBLE);
         mAuth.createUserWithEmailAndPassword(email,password)
                 .addOnFailureListener(e -> {
@@ -98,7 +98,9 @@ public class FarmRepository {
                             Toast.makeText(context, "You have signed up", Toast.LENGTH_LONG).show();
                             //This is where we set the values we want our users to have
                             User user = new User(email);
+
                             user.setEmail(email);
+                            user.setPhone(phone);
                             user.setPassword(password);
                             //Then add the user to ur database
                             String userId = mDatabaseRef.push().getKey();
