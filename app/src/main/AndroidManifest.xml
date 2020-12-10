@@ -19,7 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".farmDetail"></activity>
+        <activity android:name=".farmDetail"/>
  
         <activity android:name=".UploadFarmsActivity" />
         <activity android:name=".MainActivity" />
