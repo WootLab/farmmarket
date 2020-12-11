@@ -34,6 +34,7 @@ public class SignUp extends AppCompatActivity {
         editTextEmail = findViewById(R.id.email);
         editTextPhone = findViewById(R.id.phoneEd);
         editTextFullName = findViewById(R.id.fullname);
+
         btnSignIn = findViewById(R.id.btnSignIn);
 
         repoInstance = FarmRepository.getFarmRepositoryInstance(this);

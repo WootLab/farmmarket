@@ -62,6 +62,8 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, "You are already logged in", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
+                }else{
+                    Toast.makeText(LoginActivity.this,"You are logged out",Toast.LENGTH_LONG).show();
                 }
             }
         };

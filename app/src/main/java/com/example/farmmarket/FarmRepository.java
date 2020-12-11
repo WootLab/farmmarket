@@ -34,7 +34,6 @@ public class FarmRepository {
     private static FarmRepository farmRepository;
     private final  FirebaseAuth mAuth;
     private final FetchFromBase fetchFromBase;
-
     private final LiveData<List<Farm>> livefarms;
 
     private FarmRepository(Context context){
@@ -90,50 +89,47 @@ public class FarmRepository {
                     Toast.makeText(context,"error"+e.getMessage(),Toast.LENGTH_LONG).show();
                     bar.setVisibility(View.GONE);
                 })
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            bar.setVisibility(View.GONE);
-                            Toast.makeText(context, "You have signed up", Toast.LENGTH_LONG).show();
-                            //This is where we set the values we want our users to have
-                            User user = new User(email);
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        bar.setVisibility(View.GONE);
+                        Toast.makeText(context, "You have signed up", Toast.LENGTH_LONG).show();
+                        //This is where we set the values we want our users to have
+                        User user = new User(email);
 
-                            user.setName(name);
-                            user.setUsername(username);
-                            user.setEmail(email);
-                            user.setPhone(phone);
-                            user.setPassword(password);
-                            //Then add the user to ur database
-                            String userId = mDatabaseRef.push().getKey();
-                            assert userId != null;
-                            mDatabaseRefUsers.child(userId)
-                                    .setValue(user)
-                                    .addOnCompleteListener(task1 -> {
-                                        if (task1.isSuccessful()) {
-                                            login(email, password, context,bar);
-                                        }
-                                        
-                                        if(!task.isSuccessful()){
-                                            Toast.makeText(context,"not working",Toast.LENGTH_LONG).show();
-                                            Log.d("Repo","Not complete");
-                                            bar.setVisibility(View.GONE);
-                                        }
+                        user.setName(name);
+                        user.setUsername(username);
+                        user.setEmail(email);
+                        user.setPhone(phone);
+                        user.setPassword(password);
+                        //Then add the user to ur database
+                        String userId = mDatabaseRef.push().getKey();
+                        assert userId != null;
+                        mDatabaseRefUsers.child(userId)
+                                .setValue(user)
+                                .addOnCompleteListener(task1 -> {
+                                    if (task1.isSuccessful()) {
+                                        login(email, password, context,bar);
+                                    }
 
-                                        if (task1.isCanceled()) {
-                                            Toast.makeText(context, "action was cancelled", Toast.LENGTH_LONG).show();
-                                            bar.setVisibility(View.GONE);
-                                        }
-                                    });
+                                    if(!task.isSuccessful()){
+                                        Toast.makeText(context,"not working",Toast.LENGTH_LONG).show();
+                                        Log.d("Repo","Not complete");
+                                        bar.setVisibility(View.GONE);
+                                    }
 
-                        }
-                        
-                        
+                                    if (task1.isCanceled()) {
+                                        Toast.makeText(context, "action was cancelled", Toast.LENGTH_LONG).show();
+                                        bar.setVisibility(View.GONE);
+                                    }
+                                });
 
-                        if (task.isCanceled()) {
-                            Toast.makeText(context, "Process was cancelled", Toast.LENGTH_LONG).show();
-                            bar.setVisibility(View.GONE);
-                        }
+                    }
+
+
+
+                    if (task.isCanceled()) {
+                        Toast.makeText(context, "Process was cancelled", Toast.LENGTH_LONG).show();
+                        bar.setVisibility(View.GONE);
                     }
                 });
 
@@ -157,13 +153,10 @@ public class FarmRepository {
 
             bar.setVisibility(View.VISIBLE);
             mAuth.signInWithEmailAndPassword(email, password)
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(context,e.getMessage(),Toast.LENGTH_LONG).show();
-                            Log.d("Login error",e.getMessage());
-                            bar.setVisibility(View.GONE);
-                        }
+                    .addOnFailureListener(e -> {
+                        Toast.makeText(context,e.getMessage(),Toast.LENGTH_LONG).show();
+                        Log.d("Login error",e.getMessage());
+                        bar.setVisibility(View.GONE);
                     })
                     .addOnCompleteListener(task -> {
                         if(task.isSuccessful()){
@@ -182,13 +175,10 @@ public class FarmRepository {
     public void login(String email, String password, Context context, ProgressBar bar){
         if(email != null && password != null ){
             mAuth.signInWithEmailAndPassword(email, password)
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(context,e.getMessage(),Toast.LENGTH_LONG).show();
-                            Log.d("Login error",e.getMessage());
-                            bar.setVisibility(View.GONE);
-                        }
+                    .addOnFailureListener(e -> {
+                        Toast.makeText(context,e.getMessage(),Toast.LENGTH_LONG).show();
+                        Log.d("Login error",e.getMessage());
+                        bar.setVisibility(View.GONE);
                     })
                     .addOnCompleteListener(task -> {
                         if(task.isSuccessful()){
@@ -202,6 +192,13 @@ public class FarmRepository {
         }else{
             Toast.makeText(context,"Email or password is empty",Toast.LENGTH_LONG).show();
         }
+    }
+
+
+    public void logOut(Context context){
+        mAuth.signOut();
+        Intent intent = new Intent(context, LoginActivity.class);
+        context.startActivity(intent);
     }
 
 

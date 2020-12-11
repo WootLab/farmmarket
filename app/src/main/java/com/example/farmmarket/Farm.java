@@ -5,6 +5,8 @@ import java.io.Serializable;
 public class Farm implements Serializable {
 
     private String location;
+    private double lat;
+    private double ltd;
     private String title;
     private String description;
     private String image;
@@ -13,11 +15,29 @@ public class Farm implements Serializable {
     public Farm(){
 
     }
-    public Farm(String location, String title, String description, String image) {
+    public Farm(String location, String title, String description, String image, double lat, double ltd) {
         this.location = location;
         this.title = title;
         this.description = description;
         this.image = image;
+        this.lat = lat ;
+        this.ltd = ltd ;
+    }
+
+    public Double getLat() {
+        return lat;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public Double getLtd() {
+        return ltd;
+    }
+
+    public void setLtd(double ltd) {
+        this.ltd = ltd;
     }
 
     public String getLocation() {

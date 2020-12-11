@@ -1,10 +1,17 @@
 package com.example.farmmarket;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -28,6 +35,8 @@ public class farmDetail extends AppCompatActivity implements OnMapReadyCallback 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_farm_detail);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         imageView = findViewById(R.id.imageView4);
         textViewName = findViewById(R.id.textViewName);
         textViewDesc = findViewById(R.id.completedesc);
@@ -59,5 +68,25 @@ public class farmDetail extends AppCompatActivity implements OnMapReadyCallback 
 
         });
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        int positionOfMenuItem = 0; // or whatever...
+        MenuItem item = menu.getItem(positionOfMenuItem);
+        SpannableString s = new SpannableString("Logout");
+        s.setSpan(new ForegroundColorSpan(Color.GREEN), 0, s.length(), 0);
+        item.setTitle(s);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.action_logout) {
+            FarmRepository.getFarmRepositoryInstance(this).logOut(this);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
