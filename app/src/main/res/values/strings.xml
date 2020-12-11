@@ -11,4 +11,6 @@
     <string name="check_on_map">Check On Map</string>
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyAKXSXfI0EJVCo8GGYyYMsxoyIiu9NeLB8</string>
     <string name="farmimage">farmImage</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

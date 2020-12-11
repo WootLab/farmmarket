@@ -3,6 +3,7 @@ package com.example.farmmarket;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.viewpager.widget.ViewPager;
 
 import android.graphics.Color;
 import android.net.Uri;
@@ -37,6 +38,12 @@ public class farmDetail extends AppCompatActivity implements OnMapReadyCallback 
         setContentView(R.layout.activity_farm_detail);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        SectionAdapter pagerAdapter = new SectionAdapter(getSupportFragmentManager());
+        ViewPager pager = (ViewPager) findViewById(R.id.pager);
+        pager.setAdapter(pagerAdapter);
+
+
         imageView = findViewById(R.id.imageView4);
         textViewName = findViewById(R.id.textViewName);
         textViewDesc = findViewById(R.id.completedesc);

@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -54,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         //We stopped here
         mFarmAdapter = new FarmAdapter(this);
         recyclerView.setAdapter(mFarmAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(new GridLayoutManager(this,2));
         //model = new ViewModelProvider(this).get(FarmViewModel.class);
         FarmViewModel viewModel = new ViewModelProvider.AndroidViewModelFactory(getApplication()).create(FarmViewModel.class);
         viewModel.getAllFarms().observe(MainActivity.this, new Observer<List<Farm>>() {
@@ -82,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void gotoNext(int position) {
                 Farm farm = mListOfFarms.get(position);
-                Intent intent = new Intent(MainActivity.this,farmDetail.class);
+                Intent intent = new Intent(MainActivity.this,FarmDetailFragmentActivity.class);
                 intent.putExtra(FARM_PORT,farm);
                 startActivity(intent);
             }

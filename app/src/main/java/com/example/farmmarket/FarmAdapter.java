@@ -46,7 +46,7 @@ public class FarmAdapter extends RecyclerView.Adapter<FarmAdapter.FarmHolder> {
         Glide.with(context)
                 .asBitmap()
                 .placeholder(R.drawable.apple)
-                .circleCrop()
+                .centerCrop()
                 .load(Uri.parse("https://cdn.pixabay.com/photo/2013/11/23/13/57/barn-216372_960_720.jpg"))
                 .into(holder.image);
 
