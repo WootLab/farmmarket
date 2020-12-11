@@ -39,6 +39,7 @@ public class UploadFarmsActivity extends AppCompatActivity {
         String imageStr = image.getText().toString().trim();
         String titleStr = title.getText().toString().trim();
         String descriptionStr = description.getText().toString().trim();
+        //i stopped here
         double dlat = Double.parseDouble(lat.getText().toString().trim());
         double dltd = Double.parseDouble(ltd.getText().toString().trim());
 
