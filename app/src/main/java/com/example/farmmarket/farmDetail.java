@@ -61,8 +61,8 @@ public class farmDetail extends AppCompatActivity implements OnMapReadyCallback 
         // Add a marker in hyderabad and move the camera
         butMap.setOnClickListener(v->{
             if(mMap != null){
-                LatLng hyderadbad = new LatLng(17, 78);
-                mMap.addMarker(new MarkerOptions().position(hyderadbad).title("Garri farm"));
+                LatLng hyderadbad = new LatLng(farm.getLat(), farm.getLtd());
+                mMap.addMarker(new MarkerOptions().position(hyderadbad).title(farm.getTitle()));
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(hyderadbad,20));
             }
 
