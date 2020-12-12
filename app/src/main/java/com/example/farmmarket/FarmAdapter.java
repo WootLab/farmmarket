@@ -43,13 +43,22 @@ public class FarmAdapter extends RecyclerView.Adapter<FarmAdapter.FarmHolder> {
         holder.title.setText(specFarm.getTitle());
         holder.desc.setText(specFarm.getDescription());
         holder.location.setText(specFarm.getLocation());
+        if(specFarm.getImage() != null){
+            Glide.with(context)
+                    .asBitmap()
+                    .placeholder(R.drawable.apple)
+                    .centerCrop()
+                    .load(Uri.parse(specFarm.getImage()))
+                    .into(holder.image);
+            return;
+        }
+
         Glide.with(context)
                 .asBitmap()
                 .placeholder(R.drawable.apple)
                 .centerCrop()
                 .load(Uri.parse("https://cdn.pixabay.com/photo/2013/11/23/13/57/barn-216372_960_720.jpg"))
                 .into(holder.image);
-
 
     }
 
@@ -77,16 +86,13 @@ public class FarmAdapter extends RecyclerView.Adapter<FarmAdapter.FarmHolder> {
             image = itemView.findViewById(R.id.imageView);
             cardView = itemView.findViewById(R.id.card);
 
-            cardView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(farmAdapterListener != null){
-                        int position = getAdapterPosition();
-                        if (position != RecyclerView.NO_POSITION){
-                            farmAdapterListener.gotoNext(position);
-                        }
-
+            cardView.setOnClickListener(v -> {
+                if(farmAdapterListener != null){
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION){
+                        farmAdapterListener.gotoNext(position);
                     }
+
                 }
             });
 

@@ -15,13 +15,13 @@ public class Farm implements Serializable {
     public Farm(){
 
     }
-    public Farm(String location, String title, String description, String image, double lat, double ltd) {
+    public Farm(String location, String title, String description, String image) {
         this.location = location;
         this.title = title;
         this.description = description;
         this.image = image;
-        this.lat = lat ;
-        this.ltd = ltd ;
+        lat = 40.4556 ;
+        ltd = 50.4567 ;
     }
 
     public Double getLat() {

@@ -19,37 +19,40 @@
                 android:layout_gravity="bottom"
                 android:orientation="vertical"
                 android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginBottom="16dp">
+                android:layout_marginLeft="16dp">
 
 
                 <TextView
                     android:id="@+id/textView3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat"
                     android:text="TextView"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/imageView5" />
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/textlocation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
-                    android:text="location" />
+                    android:fontFamily="@font/montserrat"
+                    android:text="location"
+                    android:textSize="18sp" />
 
             </LinearLayout>
-
 
 
         <TextView
             android:id="@+id/textDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
+
+            android:layout_marginTop="2dp"
             android:text="Description"
+            android:textSize="16sp"
             app:layout_constraintTop_toBottomOf="parent"
             tools:layout_editor_absoluteX="9dp" />
 
@@ -57,12 +60,15 @@
             android:id="@+id/textContent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
-            android:text="@string/ipsum" />
+            android:fontFamily="@font/montserrat"
+            android:lineSpacingExtra="10sp"
+            android:text="@string/ipsum"
+            android:textSize="16sp" />
 
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>
