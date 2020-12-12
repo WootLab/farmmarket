@@ -33,6 +33,7 @@ public class DescriptionFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        assert getArguments() != null;
         farm = (Farm) getArguments().getSerializable(FARMDES);
 
     }
@@ -43,10 +44,13 @@ public class DescriptionFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_description, container, false);
         TextView textViewName = view.findViewById(R.id.textView3);
+        TextView textLocation = view.findViewById(R.id.textlocation);
         TextView textViewDesc = view.findViewById(R.id.textContent);
 
         textViewName.setText(farm.getTitle());
+        textLocation.setText(farm.getLocation());
         textViewDesc.setText(farm.getDescription());
+
         return view;
     }
 }
