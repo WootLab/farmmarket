@@ -21,7 +21,6 @@ public class SignUp extends AppCompatActivity {
     private EditText editTextEmail;
     private EditText editTextPhone;
     private EditText editTextFullName;
-    private TextView btnSignIn;
     private FarmRepository repoInstance;
 
     @Override
@@ -35,7 +34,7 @@ public class SignUp extends AppCompatActivity {
         editTextPhone = findViewById(R.id.phoneEd);
         editTextFullName = findViewById(R.id.fullname);
 
-        btnSignIn = findViewById(R.id.btnSignIn);
+        TextView btnSignIn = findViewById(R.id.btnSignIn);
 
         repoInstance = FarmRepository.getFarmRepositoryInstance(this);
 
