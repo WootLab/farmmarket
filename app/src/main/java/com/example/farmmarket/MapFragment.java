@@ -2,6 +2,8 @@ package com.example.farmmarket;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -12,8 +14,11 @@ import android.widget.Button;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -29,6 +34,7 @@ public class MapFragment extends Fragment {
     private Button butMap;
     private GoogleMap mMap;
     private Farm farm;
+    private View mView;
     private static final String FARM = "FarmMap";
     public MapFragment() {
         // Required empty public constructor
@@ -48,39 +54,44 @@ public class MapFragment extends Fragment {
         assert getArguments() != null;
         farm = (Farm) getArguments().getSerializable(FARM);
         Log.d("MapFragment",farm.getLocation());
-        /*SupportMapFragment supportMapFragment = (SupportMapFragment) Objects.requireNonNull(getActivity()).getSupportFragmentManager().findFragmentById(R.id.map);
-        supportMapFragment.getMapAsync(googleMap -> {
-            mMap = googleMap;
-            butMap.setOnClickListener(v->{
-                if(mMap != null){
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        MapView mapView = mView.findViewById(R.id.mapView);
+        if(mapView != null && butMap != null){
+            mapView.onCreate(null);
+            mapView.onResume();
+            mapView.getMapAsync(googleMap -> {
+                MapsInitializer.initialize(Objects.requireNonNull(getContext()));
+                mMap = googleMap;
+                mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+
+                butMap.setOnClickListener(v -> {
                     LatLng hyderadbad = new LatLng(farm.getLat(), farm.getLtd());
                     mMap.addMarker(new MarkerOptions().position(hyderadbad).title(farm.getTitle()));
-                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(hyderadbad,20));
-                }
+                    CameraPosition liberty = CameraPosition
+                            .builder()
+                            .target(hyderadbad)
+                            .zoom(16)
+                            .bearing(0)
+                            .tilt(45)
+                            .build();
+                    mMap.moveCamera(CameraUpdateFactory.newCameraPosition(liberty));
+                });
 
             });
-        });*/
+        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_map, container, false);
-        butMap = view.findViewById(R.id.buttonMap);
-        /*SupportMapFragment supportMapFragment = (SupportMapFragment) Objects.requireNonNull(getActivity()).getSupportFragmentManager().findFragmentById(R.id.map);
-        supportMapFragment.getMapAsync(googleMap -> {
-            mMap = googleMap;
-            butMap.setOnClickListener(v->{
-                if(mMap != null){
-                    LatLng hyderadbad = new LatLng(farm.getLat(), farm.getLtd());
-                    mMap.addMarker(new MarkerOptions().position(hyderadbad).title(farm.getTitle()));
-                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(hyderadbad,20));
-                }
+        mView = inflater.inflate(R.layout.fragment_map, container, false);
+        butMap = mView.findViewById(R.id.buttonMap);
 
-            });
-        });*/
-
-        return view ;
+        return mView ;
     }
 }
