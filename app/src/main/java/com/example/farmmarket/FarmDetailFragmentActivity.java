@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -20,25 +21,22 @@ import com.google.android.material.tabs.TabLayout;
 
 public class FarmDetailFragmentActivity extends AppCompatActivity {
 
-   // public static final String FARM_ID = "com.example.farmmarket.farm_id";
-   // Farm farmId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_farm_detail_fragment);
-        //farmId = (Farm) getIntent().getSerializableExtra(FARM_ID);
-
-
+        Farm farmId = (Farm) getIntent().getSerializableExtra(MainActivity.FARM_PORT);
+        Log.d("FarmDetailActivity", farmId.getTitle());
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ImageView imageView = findViewById(R.id.imagetool);
-
-        SectionAdapter pagerAdapter = new SectionAdapter(getSupportFragmentManager());
-        ViewPager pager = (ViewPager) findViewById(R.id.pager);
+        Log.d("FarmDetail","bout sectionadapter");
+        SectionAdapter pagerAdapter = new SectionAdapter(getSupportFragmentManager(), farmId);
+        ViewPager pager = findViewById(R.id.pager);
         pager.setAdapter(pagerAdapter);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        TabLayout tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(pager);
 
         Glide.with(this)
@@ -66,5 +64,6 @@ public class FarmDetailFragmentActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 
 }

@@ -8,8 +8,9 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 public class SectionAdapter extends FragmentPagerAdapter {
     Farm farm;
-    public SectionAdapter(@NonNull FragmentManager fm) {
+    public SectionAdapter(@NonNull FragmentManager fm,Farm farm) {
         super(fm);
+        this.farm = farm;
     }
 
     @NonNull
@@ -18,9 +19,9 @@ public class SectionAdapter extends FragmentPagerAdapter {
 
         switch (position) {
             case 0:
-                return new DescriptionFragment();
+                return DescriptionFragment.newInstance(farm);
             case 1:
-                return new MapFragment();
+                return MapFragment.newInstance(farm);
         }
         return null;
     }

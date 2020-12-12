@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,9 +26,10 @@ import java.util.Objects;
  */
 public class MapFragment extends Fragment {
 
-    /*private Button butMap;
+    private Button butMap;
     private GoogleMap mMap;
-    private Farm farm;*/
+    private Farm farm;
+    private static final String FARM = "FarmMap";
     public MapFragment() {
         // Required empty public constructor
     }
@@ -35,7 +37,7 @@ public class MapFragment extends Fragment {
     public static MapFragment newInstance(Farm farm) {
         MapFragment fragment = new MapFragment();
         Bundle args = new Bundle();
-        args.putSerializable("FarmMap",farm);
+        args.putSerializable(FARM,farm);
         fragment.setArguments(args);
         return fragment;
     }
@@ -43,12 +45,11 @@ public class MapFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //assert getArguments() != null;
-        //farm = (Farm) getArguments().getSerializable(FarmDetailFragmentActivity.FARM_ID);
-        //SupportMapFragment supportMapFragment = (SupportMapFragment) Objects.requireNonNull(getActivity()).getSupportFragmentManager().findFragmentById(R.id.map);
-
-
-       /* supportMapFragment.getMapAsync(googleMap -> {
+        assert getArguments() != null;
+        farm = (Farm) getArguments().getSerializable(FARM);
+        Log.d("MapFragment",farm.getLocation());
+        /*SupportMapFragment supportMapFragment = (SupportMapFragment) Objects.requireNonNull(getActivity()).getSupportFragmentManager().findFragmentById(R.id.map);
+        supportMapFragment.getMapAsync(googleMap -> {
             mMap = googleMap;
             butMap.setOnClickListener(v->{
                 if(mMap != null){
@@ -66,7 +67,20 @@ public class MapFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_map, container, false);
-        //butMap = view.findViewById(R.id.buttonMap);
+        butMap = view.findViewById(R.id.buttonMap);
+        /*SupportMapFragment supportMapFragment = (SupportMapFragment) Objects.requireNonNull(getActivity()).getSupportFragmentManager().findFragmentById(R.id.map);
+        supportMapFragment.getMapAsync(googleMap -> {
+            mMap = googleMap;
+            butMap.setOnClickListener(v->{
+                if(mMap != null){
+                    LatLng hyderadbad = new LatLng(farm.getLat(), farm.getLtd());
+                    mMap.addMarker(new MarkerOptions().position(hyderadbad).title(farm.getTitle()));
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(hyderadbad,20));
+                }
+
+            });
+        });*/
+
         return view ;
     }
 }

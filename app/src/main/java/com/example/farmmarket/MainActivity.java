@@ -29,13 +29,11 @@ import java.util.List;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
-
-
     private Button btnFarm;
     //private FarmViewModel model;
     private List<Farm> mListOfFarms;
     private FarmAdapter mFarmAdapter;
-    public static final String FARM_PORT = "FarmPort";
+    public static final String FARM_PORT =  "com.example.farmmarket.farm_id";
 
 
 

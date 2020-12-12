@@ -39,9 +39,9 @@ public class farmDetail extends AppCompatActivity implements OnMapReadyCallback 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        SectionAdapter pagerAdapter = new SectionAdapter(getSupportFragmentManager());
+       /* SectionAdapter pagerAdapter = new SectionAdapter(getSupportFragmentManager(),);
         ViewPager pager = (ViewPager) findViewById(R.id.pager);
-        pager.setAdapter(pagerAdapter);
+        pager.setAdapter(pagerAdapter);*/
 
 
         imageView = findViewById(R.id.imageView4);
