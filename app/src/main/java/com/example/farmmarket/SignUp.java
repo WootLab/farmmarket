@@ -65,7 +65,8 @@ public class SignUp extends AppCompatActivity {
         }
 
         if(username.isEmpty()){
-            ediTextUsername.setError("Username is required");
+            ediTextUsername.setError("Username is requi" +
+                    "red");
             ediTextUsername.requestFocus();
             return;
         }
