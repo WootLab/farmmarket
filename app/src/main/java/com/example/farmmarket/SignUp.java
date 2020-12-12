@@ -30,7 +30,6 @@ public class SignUp extends AppCompatActivity {
         editTextFullName = findViewById(R.id.fullname);
 
         TextView btnSignIn = findViewById(R.id.btnSignIn);
-
         repoInstance = FarmRepository.getFarmRepositoryInstance(this);
 
 
@@ -70,6 +69,7 @@ public class SignUp extends AppCompatActivity {
             editTextPassword.requestFocus();
             return;
         }
+        AccSharedPref.setStoredEmail(this,email);
         //This will trigger what adds the user to the database
         ProgressBar prog = findViewById(R.id.progressBar);
         repoInstance.signUp(email,password,this,prog,phone,username,fullname);

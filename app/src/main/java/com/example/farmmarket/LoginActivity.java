@@ -36,6 +36,9 @@ public class LoginActivity extends AppCompatActivity {
         TextView ntmb = findViewById(R.id.txtnamb);
         mAuth =FirebaseAuth.getInstance();
 
+        //Getting the email stored in memory
+        String emailPref = AccSharedPref.getStoredEmail(this);
+        editTextName.setText(emailPref);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         logbtn.setOnClickListener(v -> login());
         ntmb.setOnClickListener(v-> moveToSignUp());
@@ -70,9 +73,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void login() {
-
             String email = Objects.requireNonNull(editTextName.getText()).toString().trim();
             String password = Objects.requireNonNull(editTextPassword.getText()).toString().trim();
+            AccSharedPref.setStoredEmail(this,email);
             ProgressBar bar = findViewById(R.id.progressBar2);
             FarmRepository.getFarmRepositoryInstance(getApplicationContext()).login(email, password,this,bar,editTextName,editTextPassword);
 

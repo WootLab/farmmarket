@@ -41,7 +41,6 @@ public class FarmAdapter extends RecyclerView.Adapter<FarmAdapter.FarmHolder> {
 
         Farm specFarm = allfarms.get(position);
         holder.title.setText(specFarm.getTitle());
-        holder.desc.setText(specFarm.getDescription());
         holder.location.setText(specFarm.getLocation());
         if(specFarm.getImage() != null){
             Glide.with(context)
@@ -73,7 +72,7 @@ public class FarmAdapter extends RecyclerView.Adapter<FarmAdapter.FarmHolder> {
     }
 
     public class FarmHolder extends RecyclerView.ViewHolder {
-        TextView location,title,desc;
+        TextView location,title;
         Button btnShow;
         ImageView image;
         CardView cardView;
@@ -81,7 +80,6 @@ public class FarmAdapter extends RecyclerView.Adapter<FarmAdapter.FarmHolder> {
             super(itemView);
             location = itemView.findViewById(R.id.locationTV);
             title = itemView.findViewById(R.id.farmTitle);
-            desc = itemView.findViewById(R.id.farmDesc);
             btnShow = itemView.findViewById(R.id.buttonMap);
             image = itemView.findViewById(R.id.imageView);
             cardView = itemView.findViewById(R.id.card);
