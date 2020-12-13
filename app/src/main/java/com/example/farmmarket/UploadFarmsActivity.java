@@ -39,40 +39,36 @@ public class UploadFarmsActivity extends AppCompatActivity {
         String imageStr = image.getText().toString().trim();
         String titleStr = title.getText().toString().trim();
         String descriptionStr = description.getText().toString().trim();
-        //i stopped here
-        Double dlat = Double.parseDouble(lat.getText().toString().trim());
-        Double dltd = Double.parseDouble(ltd.getText().toString().trim());
 
         Farm farm = new Farm(pos,titleStr,descriptionStr,imageStr);
         if(pos.isEmpty()){
             location.setError("Farm location is needed");
             location.requestFocus();
-            return;
-        }
-
-        if(imageStr.isEmpty()){
+        }else if(imageStr.isEmpty()){
             image.setError("farm image is needed");
             image.requestFocus();
-            return;
-        }
-
-        if(titleStr.isEmpty()){
+        } else if(titleStr.isEmpty()){
             title.setError("title cant be empty");
             title.requestFocus();
-            return;
-        }
-
-        if(descriptionStr.isEmpty()){
+        } else if(descriptionStr.isEmpty()){
             description.setError("Pls describe your farm");
             description.requestFocus();
-            return;
-        }
-        if(lat != null && ltd != null){
-            farm.setLat(dlat);
-            farm.setLtd(dltd);
+        } else{
+            try{
+                double dlat = Double.parseDouble(lat.getText().toString().trim());
+                double dltd = Double.parseDouble(ltd.getText().toString().trim());
+                farm.setLat(dlat);
+                farm.setLtd(dltd);
+                ProgressBar bar = findViewById(R.id.progressBar3);
+                FarmRepository.getFarmRepositoryInstance(this).uploadFarm(farm,this,bar);
+            }catch (NumberFormatException e){
+                Toast.makeText(this,"latitude and longitude must be a number",Toast.LENGTH_LONG)
+                        .show();
+
+            }
+
         }
 
-        ProgressBar bar = findViewById(R.id.progressBar3);
-        FarmRepository.getFarmRepositoryInstance(this).uploadFarm(farm,this,bar);
+
     }
 }
