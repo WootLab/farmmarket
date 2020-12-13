@@ -9,9 +9,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
-
 import java.util.Objects;
-
 public class UploadFarmsActivity extends AppCompatActivity {
 
     private TextInputEditText location, image,title, description;
