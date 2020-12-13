@@ -3,13 +3,14 @@ package com.example.farmmarket;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
+
+import java.util.Objects;
 
 public class UploadFarmsActivity extends AppCompatActivity {
 
@@ -35,10 +36,10 @@ public class UploadFarmsActivity extends AppCompatActivity {
     }
 
     public void moveFarmsOnline(){
-        String pos = location.getText().toString().trim();
-        String imageStr = image.getText().toString().trim();
-        String titleStr = title.getText().toString().trim();
-        String descriptionStr = description.getText().toString().trim();
+        String pos = Objects.requireNonNull(location.getText()).toString().trim();
+        String imageStr = Objects.requireNonNull(image.getText()).toString().trim();
+        String titleStr = Objects.requireNonNull(title.getText()).toString().trim();
+        String descriptionStr = Objects.requireNonNull(description.getText()).toString().trim();
 
         Farm farm = new Farm(pos,titleStr,descriptionStr,imageStr);
         if(pos.isEmpty()){
