@@ -40,6 +40,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:19.5.1'
     implementation 'com.google.firebase:firebase-auth:20.0.1'
     implementation 'com.google.android.gms:play-services-location:17.1.0'
+    implementation 'com.daimajia.androidanimations:library:2.4@aar'
     //This helps to solve the problem of viewmodel instantiation
     //implementation "androidx.lifecycle:lifecycle-extension:$lifecycle_version"
     // ViewModel
