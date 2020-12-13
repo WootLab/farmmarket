@@ -66,19 +66,11 @@ public class MapFragment extends Fragment {
             mapView.getMapAsync(googleMap -> {
                 MapsInitializer.initialize(Objects.requireNonNull(getContext()));
                 mMap = googleMap;
-                mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-
+                //mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
                 butMap.setOnClickListener(v -> {
                     LatLng hyderadbad = new LatLng(farm.getLat(), farm.getLtd());
                     mMap.addMarker(new MarkerOptions().position(hyderadbad).title(farm.getTitle()));
-                    CameraPosition liberty = CameraPosition
-                            .builder()
-                            .target(hyderadbad)
-                            .zoom(16)
-                            .bearing(0)
-                            .tilt(45)
-                            .build();
-                    mMap.moveCamera(CameraUpdateFactory.newCameraPosition(liberty));
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(hyderadbad,20));
                 });
 
             });

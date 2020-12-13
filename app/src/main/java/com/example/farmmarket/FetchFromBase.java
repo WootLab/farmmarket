@@ -52,6 +52,8 @@ public class FetchFromBase {
         firebaseDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //This prevents multiple uploads
+                farmList.clear();
                 for(DataSnapshot dataSnapshot: snapshot.getChildren()){
                     Farm farm = dataSnapshot.getValue(Farm.class);
                     Log.d("Flow","Performing loading");

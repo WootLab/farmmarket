@@ -41,7 +41,7 @@ public class FarmDetailFragmentActivity extends AppCompatActivity {
 
         Glide.with(this)
                 .asBitmap()
-                .load(Uri.parse("https://cdn.pixabay.com/photo/2013/11/23/13/57/barn-216372_960_720.jpg"))
+                .load(Uri.parse(farmId.getImage()))
                 .into(imageView);
     }
 
