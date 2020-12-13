@@ -59,18 +59,21 @@ public class MapFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        //SupportMapFragment mapView = (SupportMapFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.map);
         MapView mapView = mView.findViewById(R.id.mapView);
+        Log.d("MapView",""+mapView);
         if(mapView != null && butMap != null){
             mapView.onCreate(null);
             mapView.onResume();
             mapView.getMapAsync(googleMap -> {
                 MapsInitializer.initialize(Objects.requireNonNull(getContext()));
                 mMap = googleMap;
-                //mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+                mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
                 butMap.setOnClickListener(v -> {
                     LatLng hyderadbad = new LatLng(farm.getLat(), farm.getLtd());
                     mMap.addMarker(new MarkerOptions().position(hyderadbad).title(farm.getTitle()));
-                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(hyderadbad,20));
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(hyderadbad, 15));
+                    //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(hyderadbad,20));
                 });
 
             });
