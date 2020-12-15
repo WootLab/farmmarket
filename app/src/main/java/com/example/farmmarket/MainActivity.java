@@ -2,10 +2,8 @@ package com.example.farmmarket;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -29,7 +27,6 @@ import java.util.List;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
-    private Button btnFarm;
     //private FarmViewModel model;
     private List<Farm> mListOfFarms;
     private FarmAdapter mFarmAdapter;
@@ -41,12 +38,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar =  findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         //i STOPPED HERE
 
-        btnFarm = findViewById(R.id.buttonFarm);
+        Button btnFarm = findViewById(R.id.buttonFarm);
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         ProgressBar bar = findViewById(R.id.progressBar5);
         btnFarm.setOnClickListener(v->gotoFarmUpload());
@@ -56,18 +53,15 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new GridLayoutManager(this,2));
         //model = new ViewModelProvider(this).get(FarmViewModel.class);
         FarmViewModel viewModel = new ViewModelProvider.AndroidViewModelFactory(getApplication()).create(FarmViewModel.class);
-        viewModel.getAllFarms().observe(MainActivity.this, new Observer<List<Farm>>() {
-            @Override
-            public void onChanged(List<Farm> farms) {
-                mListOfFarms = farms;
-                if(!FarmRepository.getFarmRepositoryInstance(MainActivity.this).getLoading()){
-                    bar.setVisibility(View.GONE);
-                }
-
-                mFarmAdapter.setFarms(farms);
-                setEmptyFarm(mListOfFarms);
-
+        viewModel.getAllFarms().observe(MainActivity.this, farms -> {
+            mListOfFarms = farms;
+            if(!FarmRepository.getFarmRepositoryInstance(MainActivity.this).getLoading()){
+                bar.setVisibility(View.GONE);
             }
+
+            mFarmAdapter.setFarms(farms);
+            setEmptyFarm(mListOfFarms);
+
         });
 
         String email = Objects.requireNonNull(mAuth.getCurrentUser()).getEmail();
@@ -77,14 +71,11 @@ public class MainActivity extends AppCompatActivity {
             btnFarm.setVisibility(View.VISIBLE);
         }
 
-        mFarmAdapter.farmDetail(new FarmAdapter.FarmAdapterListener() {
-            @Override
-            public void gotoNext(int position) {
-                Farm farm = mListOfFarms.get(position);
-                Intent intent = new Intent(MainActivity.this,FarmDetailFragmentActivity.class);
-                intent.putExtra(FARM_PORT,farm);
-                startActivity(intent);
-            }
+        mFarmAdapter.farmDetail(position -> {
+            Farm farm = mListOfFarms.get(position);
+            Intent intent = new Intent(MainActivity.this,FarmDetailFragmentActivity.class);
+            intent.putExtra(FARM_PORT,farm);
+            startActivity(intent);
         });
 
     }

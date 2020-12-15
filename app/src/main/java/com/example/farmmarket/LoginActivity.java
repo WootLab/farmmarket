@@ -12,9 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.internal.CheckableImageButton;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -49,6 +47,7 @@ public class LoginActivity extends AppCompatActivity {
     private void moveToSignUp() {
         Intent intent = new Intent(LoginActivity.this, SignUp.class);
         startActivity(intent);
+        finish();
     }
 
 

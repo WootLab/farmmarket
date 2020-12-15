@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -39,7 +38,6 @@ public class SignUp extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
         defineViews();
 
-
         setAnimation(textInputLayoutFullName,1000);
         setAnimation(textInputLayoutEmail,2000);
         setAnimation(textInputLayoutUsername,1500);
@@ -68,6 +66,7 @@ public class SignUp extends AppCompatActivity {
         btnSignIn.setOnClickListener(v -> {
             Intent intent = new Intent(SignUp.this,LoginActivity.class);
             startActivity(intent);
+            finish();
         });
     }
 
@@ -123,9 +122,7 @@ public class SignUp extends AppCompatActivity {
     }
 
     public void setAnimation(TextInputLayout textInputLayout,long time) {
-        textInputLayout.setOnClickListener(v -> {
-                realAnime(textInputLayout,time);
-        });
+        textInputLayout.setOnClickListener(v -> realAnime(textInputLayout,time));
     }
 
     public void setAnimation(EditText editText){

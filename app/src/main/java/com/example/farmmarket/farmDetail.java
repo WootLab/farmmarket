@@ -3,14 +3,12 @@ package com.example.farmmarket;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.viewpager.widget.ViewPager;
 
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -27,8 +25,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class farmDetail extends AppCompatActivity implements OnMapReadyCallback {
 
-    private ImageView imageView ;
-    private TextView textViewName,textViewDesc;
     private Farm farm;
     private Button butMap;
     private GoogleMap mMap;
@@ -36,7 +32,7 @@ public class farmDetail extends AppCompatActivity implements OnMapReadyCallback 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_farm_detail);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
        /* SectionAdapter pagerAdapter = new SectionAdapter(getSupportFragmentManager(),);
@@ -44,9 +40,9 @@ public class farmDetail extends AppCompatActivity implements OnMapReadyCallback 
         pager.setAdapter(pagerAdapter);*/
 
 
-        imageView = findViewById(R.id.imageView4);
-        textViewName = findViewById(R.id.textViewName);
-        textViewDesc = findViewById(R.id.completedesc);
+        ImageView imageView = findViewById(R.id.imageView4);
+        TextView textViewName = findViewById(R.id.textViewName);
+        TextView textViewDesc = findViewById(R.id.completedesc);
         butMap = findViewById(R.id.buttonMap);
 
         SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
