@@ -41,11 +41,11 @@ public class SplashScreenActivity extends AppCompatActivity {
             if(isFirstTime){
                 AccSharedPref.setUserState(this,false);
                 startActivity(new Intent(SplashScreenActivity.this,Onboarding.class));
-                finish();
             } else{
                 Intent intent = new Intent(SplashScreenActivity.this, LoginActivity.class);
                 startActivity(intent);
             }
+            finish();
         }, SPLASH_SCREEN);
     }
 }
