@@ -14,6 +14,7 @@ import android.widget.TextView;
 public class SplashScreenActivity extends AppCompatActivity {
 
     private static int SPLASH_SCREEN = 5000;
+    private boolean onBoarding;
 
 //Yvonne likes to sleep
 
@@ -37,13 +38,18 @@ public class SplashScreenActivity extends AppCompatActivity {
         image.setAnimation(topAnimation);
         text.setAnimation(bottomAnimation);
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
+        new Handler().postDelayed(() -> {
+            boolean isFirstTime = AccSharedPref.getUserState(this);
+
+            if(!isFirstTime){
+                AccSharedPref.setUserState(this,false);
+                startActivity(new Intent(SplashScreenActivity.this,Onboarding.class));
+            } else{
                 Intent intent = new Intent(SplashScreenActivity.this, LoginActivity.class);
                 startActivity(intent);
-                finish();
             }
+            finish();
+
         },SPLASH_SCREEN);
     }
 }

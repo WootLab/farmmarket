@@ -49,6 +49,7 @@ public class LoginActivity extends AppCompatActivity {
     private void moveToSignUp() {
         Intent intent = new Intent(LoginActivity.this, SignUp.class);
         startActivity(intent);
+        finish();
     }
 
 
