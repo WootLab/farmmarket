@@ -18,17 +18,15 @@ import com.daimajia.androidanimations.library.YoYo;
 
 public class Onboarding extends AppCompatActivity {
 
-    private ViewPager viewPager;
-    private TextView[] textView;
     private LinearLayout linearLayout;
-    private int mCurrentPage;
+
     private Button buttonStarted;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_onboarding);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        viewPager = findViewById(R.id.viewpage);
+        ViewPager viewPager = findViewById(R.id.viewpage);
         linearLayout = findViewById(R.id.linearLayoutdot);
 
         Button skipBut = findViewById(R.id.skipbutton);
@@ -38,18 +36,8 @@ public class Onboarding extends AppCompatActivity {
         viewPager.setAdapter(sliderAdapter);
         addDot(0);
         viewPager.addOnPageChangeListener(onPageChangeListener);
-        skipBut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                moveToSignUp();
-            }
-        });
-        buttonStarted.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                moveToSignUp();
-            }
-        });
+        skipBut.setOnClickListener(v -> moveToSignUp());
+        buttonStarted.setOnClickListener(v -> moveToSignUp());
     }
 
 
@@ -62,7 +50,6 @@ public class Onboarding extends AppCompatActivity {
         @Override
         public void onPageSelected(int position) {
             addDot(position);
-            mCurrentPage = position;
 
             if(position == 0){
                 buttonStarted.setVisibility(View.INVISIBLE);
@@ -94,9 +81,9 @@ public class Onboarding extends AppCompatActivity {
     }
 
     private void addDot(int position){
-        textView = new TextView[4];
+        TextView[] textView = new TextView[4];
         linearLayout.removeAllViews();
-        for(int i = 0 ; i < textView.length ; i++){
+        for(int i = 0; i < textView.length ; i++){
             Log.d("Slider","Am in dis Onboarding textView");
             textView[i] = new TextView(this);
             textView[i].setText(Html.fromHtml("&#8226"));

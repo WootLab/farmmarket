@@ -13,14 +13,10 @@ import android.widget.TextView;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
-    private static int SPLASH_SCREEN = 5000;
-    private boolean onBoarding;
 
 //Yvonne likes to sleep
 
     Animation topAnimation, bottomAnimation;
-    private ImageView image;
-    private TextView text;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,12 +28,13 @@ public class SplashScreenActivity extends AppCompatActivity {
         topAnimation = AnimationUtils.loadAnimation(this, R.anim.top_anim);
         bottomAnimation = AnimationUtils.loadAnimation(this, R.anim.bottom_anim);
 
-        image = findViewById(R.id.imageView);
-        text = findViewById(R.id.textView);
+        ImageView image = findViewById(R.id.imageView);
+        TextView text = findViewById(R.id.textView);
 
         image.setAnimation(topAnimation);
         text.setAnimation(bottomAnimation);
 
+        int SPLASH_SCREEN = 5000;
         new Handler().postDelayed(() -> {
             boolean isFirstTime = AccSharedPref.getUserState(this);
 
@@ -49,6 +46,6 @@ public class SplashScreenActivity extends AppCompatActivity {
                 Intent intent = new Intent(SplashScreenActivity.this, LoginActivity.class);
                 startActivity(intent);
             }
-        },SPLASH_SCREEN);
+        }, SPLASH_SCREEN);
     }
 }
